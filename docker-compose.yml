@@ -61,7 +61,7 @@ services:
       - "5000:5000/udp"
       - "9600:9600"
     environment:
-      LS_JAVA_OPTS: -Xmx256m -Xms256m
+      LS_JAVA_OPTS: -Xms500m -Xmx500m
       LOGSTASH_INTERNAL_PASSWORD: ${LOGSTASH_INTERNAL_PASSWORD:-}
     networks:
       - elk
@@ -82,7 +82,18 @@ services:
     networks:
       - elk
     depends_on:
-      - elasticsearch
+      - elasticsearch 
+
+  mongo:
+    image: "mongo:latest"
+    container_name: mongo
+    volumes:
+      - /data/mongodb/data/db:/data/db
+    networks:
+      - elk
+    ports:
+      - "27017:27017"
+    restart: always
 
 networks:
   elk:
