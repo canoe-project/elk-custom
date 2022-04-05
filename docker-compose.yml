@@ -95,6 +95,21 @@ services:
       - "27017:27017"
     restart: always
 
+  mariadb:
+    image: mariadb:10
+    ports:
+      - 3306:3306
+    volumes:
+      - ./mariadb/conf.d:/etc/mysql/conf.d
+      - ./mariadb/data:/var/lib/mysql
+      - ./mariadb/initdb.d:/docker-entrypoint-initdb.d
+    env_file: .env
+    environment:
+      TZ: Asia/Seoul
+    networks:
+      - elk
+    restart: always
+        
 networks:
   elk:
     driver: bridge
@@ -102,3 +117,4 @@ networks:
 volumes:
   setup:
   elasticsearch:
+
