@@ -84,17 +84,6 @@ services:
     depends_on:
       - elasticsearch 
 
-  mongo:
-    image: "mongo:latest"
-    container_name: mongo
-    volumes:
-      - /data/mongodb/data/db:/data/db
-    networks:
-      - elk
-    ports:
-      - "27017:27017"
-    restart: always
-
   mariadb:
     image: mariadb:10
     ports:
